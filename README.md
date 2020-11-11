@@ -53,8 +53,8 @@ The `bootstrapConfirmation` function takes an optional parameter that, when pres
 | closeIcon | boolean      | false                                        | Toggles the visibility of the close icon button in the top-right corner of the modal. |
 | message   | string       | ''                                           | The text inside the modal-body element.                                               |
 | title     | string       | ''                                           | The text inside the modal-title element                                               |
-| no        | actionObject | { class- 'confirmation-no', text- 'Cancel' } | Specifies the class and text properties of the 'no' button.                           |
-| yes       | actionObject | { class- 'confirmation-yes', text- 'Ok' }    | Specifies the class and text properties of the 'yes' button                           |
+| no        | actionButton | { class- 'confirmation-no', text- 'Cancel' } | Specifies the class and text properties of the 'no' button.                           |
+| yes       | actionButton | { class- 'confirmation-yes', text- 'Ok' }    | Specifies the class and text properties of the 'yes' button                           |
 
 #### actionButton
 |  Name |  Type  |                  Description                 |
