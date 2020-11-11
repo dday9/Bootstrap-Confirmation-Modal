@@ -45,6 +45,8 @@ bootstrapConfirmation({
 ## Configuration
 The `bootstrapConfirmation` function takes an optional parameter that, when present, should be an object as represented by this picture:
 
+![bootstrapConfirmation screenshot with legend](bootstrapConfirmation.PNG)
+
 ### config
 |    Name   |     Type     |                    Default                   |                                      Description                                      |
 |-----------|--------------|----------------------------------------------|---------------------------------------------------------------------------------------|
