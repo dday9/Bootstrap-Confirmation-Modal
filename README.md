@@ -45,18 +45,20 @@ bootstrapConfirmation({
 ## Configuration
 The `bootstrapConfirmation` function takes an optional parameter that, when present, should be an object as represented by this picture:
 
-![bootstrapConfirmation screenshot with legend](bootstrapConfirmation.PNG)
+![bootstrapConfirmation screenshot with legend](screenshot.png)
 
 ### config
+Object with the following properties:
 |    Name   |     Type     |                    Default                   |                                      Description                                      |
 |-----------|--------------|----------------------------------------------|---------------------------------------------------------------------------------------|
 | closeIcon | boolean      | false                                        | Toggles the visibility of the close icon button in the top-right corner of the modal. |
 | message   | string       | ''                                           | The text inside the modal-body element.                                               |
 | title     | string       | ''                                           | The text inside the modal-title element                                               |
-| no        | actionButton | { class- 'confirmation-no', text- 'Cancel' } | Specifies the class and text properties of the 'no' button.                           |
-| yes       | actionButton | { class- 'confirmation-yes', text- 'Ok' }    | Specifies the class and text properties of the 'yes' button                           |
+| no        | actionButton | { class: 'confirmation-no', text: 'Cancel' } | Specifies the class and text properties of the 'no' button.                           |
+| yes       | actionButton | { class: 'confirmation-yes', text: 'Ok' }    | Specifies the class and text properties of the 'yes' button                           |
 
 #### actionButton
+Object with the following properties:
 |  Name |  Type  |                  Description                 |
 |-------|--------|----------------------------------------------|
 | class | string | The class attribute of the respective button |
