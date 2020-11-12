@@ -2,6 +2,10 @@
 
 A simple jQuery solution for displaying and handling Bootstrap confirmation modals on the fly.
 
+## Demo
+Demo Files: ([./demo](./demo))
+
+Fiddle: https://jsfiddle.net/7g4819yL/
 
 ## Dependencies
 ### CSS
