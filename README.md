@@ -1,6 +1,10 @@
+
 # Bootstrap Confirmation Modal
 
-A simple jQuery solution for displaying and handling Bootstrap confirmation modals on the fly.
+A simple solution for displaying and handling Bootstrap confirmation modals on the fly.
+
+## Bootstrap V4 and V5
+Bootstrap made major changes in version 5, namely that Bootstrap 5 is designed to be used without jQuery. To accommodate this change, the confirmation modal is split up between two separate directories, [v4](./src/v4) which uses jQuery and another for [v5](./src/v4) which uses vanilla Javascript. 
 
 ## Demo
 Demo Files: [./demo](./demo)
@@ -9,11 +13,11 @@ Fiddle: https://jsfiddle.net/7g4819yL/
 
 ## Dependencies
 ### CSS
- - Bootstrap 4.5.3
+ - Bootstrap 4.5.3 or 5.0
 
 ### JavaScript
- - jQuery 3.5.1
- - Bootstrap 4.5.3
+ - jQuery 3.5.1 (if targeting Bootstrap 4)
+ - Bootstrap 4.5.3 or 5.0
 
 ## Usage
 ### Simplest Usage
