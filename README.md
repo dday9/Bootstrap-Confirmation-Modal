@@ -4,7 +4,7 @@
 A simple solution for displaying and handling Bootstrap confirmation modals on the fly.
 
 ## Bootstrap V4 and V5
-Bootstrap made major changes in version 5, namely that Bootstrap 5 is designed to be used without jQuery. To accommodate this change, the confirmation modal is split up between two separate directories, [v4](./src/v4) which uses jQuery and another for [v5](./src/v4) which uses vanilla Javascript. 
+Bootstrap made major changes in version 5, namely that Bootstrap 5 is designed to be used without jQuery. To accommodate this change, the confirmation modal is split up between two separate directories, [v4](./src/v4) which uses jQuery and another for [v5](./src/v5) which uses vanilla Javascript. 
 
 ## Demo
 Demo Files: [./demo](./demo)
