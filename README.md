@@ -11,7 +11,7 @@ Demo Files: [./demo](./demo)
 
 Fiddle (v4): https://jsfiddle.net/7g4819yL/
 
-Fiddle (v5): https://jsfiddle.net/46eLzgrq/
+Fiddle (v5): https://jsfiddle.net/0pew5r9t/
 
 ## Dependencies
 ### CSS
