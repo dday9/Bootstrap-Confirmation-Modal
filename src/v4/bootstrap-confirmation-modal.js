@@ -51,36 +51,36 @@ var confirmationDOM = function (configuration) {
 var bootstrapConfirmation = function (params) {
     // optionally setup the default parameters
     params = params || {};
-    params.yesCallBack = params.yesCallBack || function () {};
-    params.noCallBack = params.noCallBack || function () {};
+    var modalPromise = new Promise(function(resolve, reject) {
+        // build the modal DOM passing the configuration
+        var modal = confirmationDOM(params.config);
 
-    // build the modal DOM passing the configuration
-    var modal = confirmationDOM(params.config);
+        // append the modal DOM to the body
+        var id = "#" + modal.prop("id");
+        $("body").append(modal);
 
-    // append the modal DOM to the body
-    var id = "#" + modal.prop("id");
-    $("body").append(modal);
+        // handle: modal hidden, yes click, and no click
+        $("body").on("hidden.bs.modal", id, function (e) {
+            if (!$(id).attr("data-action")) {
+                // if the user clicks outside of the modal, causing it to close, assume "no"
+                params.noCallBack();
+            }
+            $(id).modal("dispose");
+            $(id).remove();
+        });
+        $("body").on("click", id + " .confirmation-yes", function (e) {
+            resolve();
+            $(id).attr("data-action", 1);
+            $(id).modal("hide");
+        });
+        $("body").on("click", id + " .confirmation-no", function (e) {
+            reject();
+            $(id).attr("data-action", 1);
+            $(id).modal("hide");
+        });
 
-    // handle: modal hidden, yes click, and no click
-    $("body").on("hidden.bs.modal", id, function (e) {
-        if (!$(id).attr("data-action")) {
-            // if the user clicks outside of the modal, causing it to close, assume "no"
-            params.noCallBack();
-        }
-        $(id).modal("dispose");
-        $(id).remove();
+        // show the modal
+        $(id).modal("show");
     });
-    $("body").on("click", id + " .confirmation-yes", function (e) {
-        params.yesCallBack();
-        $(id).attr("data-action", 1);
-        $(id).modal("hide");
-    });
-    $("body").on("click", id + " .confirmation-no", function (e) {
-        params.noCallBack();
-        $(id).attr("data-action", 1);
-        $(id).modal("hide");
-    });
-
-    // show the modal
-    $(id).modal("show");
+    return modalPromise;
 };
