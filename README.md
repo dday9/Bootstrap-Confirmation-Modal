@@ -44,8 +44,8 @@ bootstrapConfirmation({
         }
     }
 })
-    .then(() => { console.log('yes'); }) // .done in jQuery
-    .catch(() => { console.log('no'); }); // .fail in jQuery
+    .then(() => { console.log('yes'); })
+    .catch(() => { console.log('no'); });
 ```
 
 ## Configuration
