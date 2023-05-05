@@ -78,29 +78,30 @@ const confirmationDOM = function (configuration) {
 const bootstrapConfirmation = function (params) {
     // optionally setup the default parameters
     params = params || {};
-    params.yesCallBack = params.yesCallBack || function () {};
-    params.noCallBack = params.noCallBack || function () {};
+    const modalPromise = new Promise((resolve, reject) => {
+      // build the modal DOM passing the configuration
+      const modalDOM = confirmationDOM(params.config);
 
-    // build the modal DOM passing the configuration
-    const modalDOM = confirmationDOM(params.config);
+      // append the modal DOM to the body
+      document.body.appendChild(modalDOM);
 
-    // append the modal DOM to the body
-    document.body.appendChild(modalDOM);
-
-    // handle: modal hidden, yes click, and no click
-    const buttonConfirmationNo = modalDOM.querySelector('.confirmation-no');
-    const buttonConfirmationYes = modalDOM.querySelector('.confirmation-yes');
-    document.querySelector('body').addEventListener('click', function (event) {
+      // handle: modal hidden, yes click, and no click
+      const buttonConfirmationNo = modalDOM.querySelector('.confirmation-no');
+      const buttonConfirmationYes = modalDOM.querySelector('.confirmation-yes');
+      document.querySelector('body').addEventListener('click', function (event) {
         if (event.target === buttonConfirmationNo) {
-            params.noCallBack();
-            modal.hide();
+          reject()
+          modal.hide();
         } else if (event.target === buttonConfirmationYes) {
-            params.yesCallBack();
-            modal.hide();
+          resolve();
+          modal.hide();
         }
+      });
+
+      // show the modal
+      const modal = new bootstrap.Modal(document.getElementById(modalDOM.id));
+      modal.show();
     });
 
-    // show the modal
-    const modal = new bootstrap.Modal(document.getElementById(modalDOM.id));
-    modal.show();
+    return modalPromise;
 };

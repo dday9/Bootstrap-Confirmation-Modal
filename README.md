@@ -11,7 +11,7 @@ Demo Files: [./demo](./demo)
 
 Fiddle (v4): https://jsfiddle.net/7g4819yL/
 
-Fiddle (v5): https://jsfiddle.net/0pew5r9t/
+Fiddle (v5): https://jsfiddle.net/bna9rz5s/
 
 ## Dependencies
 ### CSS
@@ -30,12 +30,6 @@ bootstrapConfirmation();
 ### Complex Usage
 ```js
 bootstrapConfirmation({
-    yesCallBack: function () {
-        console.log('yes');
-    },
-    noCallBack: function () {
-        console.log('no');
-    },
     config: {
         closeIcon: true,
         message: 'This is an example.',
@@ -49,7 +43,9 @@ bootstrapConfirmation({
             text: 'Yes'
         }
     }
-});
+})
+    .then(() => { console.log('yes'); }) // .done in jQuery
+    .catch(() => { console.log('no'); }); // .fail in jQuery
 ```
 
 ## Configuration
@@ -73,12 +69,6 @@ Object with the following properties:
 |-------|--------|----------------------------------------------|
 | class | string | The class attribute of the respective button |
 | text  | string | The text of the respective button            |
-
-### yesCallBack
-Function that gets executed when the user clicks on the 'yes' button.
-
-### noCallBack
-Function that gets executed when the user clicks on the 'no' button.
 
 ## Donate
 Show your support! Your (non-tax deductible) donation of Monero cryptocurrency is a sign of solidarity among web developers.
