@@ -9,9 +9,9 @@ Bootstrap made major changes in version 5, namely that Bootstrap 5 is designed t
 ## Demo
 Demo Files: [./demo](./demo)
 
-Fiddle (v4): https://jsfiddle.net/0qt52ou4/
+Fiddle (v4): https://jsfiddle.net/y6v0e5zh/
 
-Fiddle (v5): https://jsfiddle.net/bna9rz5s/
+Fiddle (v5): https://jsfiddle.net/dqhytg1L/
 
 ## Dependencies
 ### CSS
@@ -24,32 +24,34 @@ Fiddle (v5): https://jsfiddle.net/bna9rz5s/
 ## Usage
 ### Simplest Usage
 ```js
-bootstrapConfirmation();
+confirmationModal.show();
 ```
 
 ### Complex Usage
 ```js
-bootstrapConfirmation({
-    config: {
-        closeIcon: true,
-        message: 'This is an example.',
-        title: 'Example',
-        no: {
-            class: 'btn btn-danger',
-            text: 'No'
-        },
-        yes: {
-            class: 'btn btn-success',
-            text: 'Yes'
-        }
+confirmationModal.show({
+    closeIcon: true,
+    message: 'This is an example.',
+    title: 'Example',
+    no: {
+        class: 'btn btn-danger',
+        text: 'No'
+    },
+    yes: {
+        class: 'btn btn-success',
+        text: 'Yes'
     }
 })
-    .then(() => { console.log('yes'); })
-    .catch(() => { console.log('no'); });
+    .then(() => {
+        console.log('yes');
+    })
+    .catch(() => {
+        console.log('no');
+    });
 ```
 
 ## Configuration
-The `bootstrapConfirmation` function takes an optional parameter that, when present, should be an object as represented by this picture:
+The `confirmationModal.show` function takes an optional parameter that, when present, should be an object as represented by this picture:
 
 ![bootstrapConfirmation screenshot with legend](screenshot.png)
 
