@@ -1,86 +1,109 @@
-var confirmationDOM = function (configuration) {
-    // optionally setup the default configuration
-    configuration = configuration || {};
-    configuration.title = configuration.title || "";
-    configuration.closeIcon = configuration.closeIcon || false;
-    configuration.message = configuration.message || "";
-    configuration.no = configuration.no || {};
-    configuration.no.class = (configuration.no.class || "btn btn-secondary").trim() + " confirmation-no";
-    configuration.no.text = configuration.no.text || "Cancel";
-    configuration.yes = configuration.yes || {};
-    configuration.yes.class = (configuration.yes.class || "btn btn-primary").trim() + " confirmation-yes";
-    configuration.yes.text = configuration.yes.text || "Ok";
+const confirmationModal = {};
 
-    // build the required DOM
-    var modal = $("<div />", { class: "modal", id: "confirmation-modal-" + new Date().getTime() });
-    modal.attr("tabindex", "-1");
-    var modalDialog = $("<div />", { class: "modal-dialog" });
-    var modalContent = $("<div />", { class: "modal-content" });
-    var modalBody = $("<div />", { class: "modal-body" });
-    var modalBodyText = $("<p />", { text: configuration.message });
-    modalBody.append(modalBodyText);
-    var modalFooter = $("<div />", { class: "modal-footer" });
-    var modalFooterNoButton = $("<button />", { class: configuration.no.class, text: configuration.no.text });
-    var modalFooterYesButton = $("<button />", { class: configuration.yes.class, text: configuration.yes.text });
-    modalFooter.append(modalFooterNoButton, modalFooterYesButton);
-    modalContent.append(modalBody);
-    modalContent.append(modalFooter);
+confirmationModal.buildDom = configuration => {
+	// optionally setup the default configuration
+	configuration = configuration || {};
+	configuration.title = configuration.title || '';
+	configuration.closeIcon = configuration.closeIcon || false;
+	configuration.message = configuration.message || '';
+	configuration.no = configuration.no || {};
+	configuration.no.class = (configuration.no.class || 'btn btn-secondary').trim() + ' confirmation-no';
+	configuration.no.text = configuration.no.text || 'Cancel';
+	configuration.yes = configuration.yes || {};
+	configuration.yes.class = (configuration.yes.class || 'btn btn-primary').trim() + ' confirmation-yes';
+	configuration.yes.text = configuration.yes.text || 'Ok';
 
-    // optionally build the header DOM
-    if (configuration.title || configuration.closeIcon) {
-        var modalHeader = $("<div />", { class: "modal-header" });
-        var modalTitle = $("<h5 />", { class: "modal-title", text: configuration.title });
-        modalHeader.append(modalTitle);
+	// build the required DOM
+	const modal = document.createElement('div');
+	modal.classList.add('modal');
+	modal.setAttribute('tabindex', '-1');
 
-        // optionally build the close icon button
-        if (configuration.closeIcon) {
-            var closeText = $("<span />", { html: "&times;" });
-            closeText.attr("aria-hidden", "true");
-            var closeButton = $("<button />", { type: "button", class: "close confirmation-no" });
-            closeButton.append(closeText);
-            modalHeader.append(closeButton);
-        }
-        modalContent.prepend(modalHeader);
-    }
+	const modalDialog = document.createElement('div');
+	modalDialog.classList.add('modal-dialog');
 
-    // finish building the DOM and return the modal
-    modalDialog.append(modalContent);
-    modal.append(modalDialog);
-    return modal;
+	const modalContent = document.createElement('div');
+	modalContent.classList.add('modal-content');
+
+	const modalBody = document.createElement('div');
+	modalBody.classList.add('modal-body');
+
+	const modalBodyText = document.createElement('p');
+	modalBodyText.textContent = configuration.message;
+	modalBody.appendChild(modalBodyText);
+
+	const modalFooter = document.createElement('div');
+	modalFooter.classList.add('modal-footer');
+
+	const modalFooterNoButton = document.createElement('button');
+	modalFooterNoButton.setAttribute('class', configuration.no.class);
+	modalFooterNoButton.textContent = configuration.no.text;
+	modalFooterNoButton.dataset.dismiss = 'modal';
+
+	const modalFooterYesButton = document.createElement('button');
+	modalFooterYesButton.setAttribute('class', configuration.yes.class);
+	modalFooterYesButton.textContent = configuration.yes.text;
+
+	modalFooter.appendChild(modalFooterNoButton);
+	modalFooter.appendChild(modalFooterYesButton);
+	modalContent.appendChild(modalBody);
+	modalContent.appendChild(modalFooter);
+
+	// optionally build the header DOM
+	if (configuration.title || configuration.closeIcon) {
+		const modalHeader = document.createElement('div');
+		modalHeader.classList.add('modal-header');
+
+		const modalTitle = document.createElement('h5');
+		modalTitle.classList.add('modal-title');
+		modalTitle.textContent = configuration.title;
+		modalHeader.appendChild(modalTitle);
+
+		// optionally build the close icon button
+		if (configuration.closeIcon) {
+			const closeText = document.createElement('span');
+			closeText.setAttribute('aria-hidden', 'true');
+			closeText.innerHTML = '&times;';
+
+			const closeButton = document.createElement('button');
+			closeButton.classList.add('close');
+			closeButton.dataset.dismiss = 'modal';
+			closeButton.appendChild(closeText);
+			modalHeader.appendChild(closeButton);
+		}
+		modalContent.prepend(modalHeader);
+	}
+
+	// finish building the DOM and return the modal
+	modalDialog.appendChild(modalContent);
+	modal.appendChild(modalDialog);
+	return modal;
 };
-var bootstrapConfirmation = function (params) {
-    // optionally setup the default parameters
-    params = params || {};
-    var modalPromise = new Promise(function(resolve, reject) {
-        // build the modal DOM passing the configuration
-        var modal = confirmationDOM(params.config);
 
-        // append the modal DOM to the body
-        var id = "#" + modal.prop("id");
-        $("body").append(modal);
+confirmationModal.show = params => {
+	// optionally setup the default parameters
+	params = params || {};
 
-        // handle: modal hidden, yes click, and no click
-        $("body").on("hidden.bs.modal", id, function (e) {
-            if (!$(id).attr("data-action")) {
-                // if the user clicks outside of the modal, causing it to close, assume "no"
-                params.noCallBack();
-            }
-            $(id).modal("dispose");
-            $(id).remove();
-        });
-        $("body").on("click", id + " .confirmation-yes", function (e) {
-            resolve();
-            $(id).attr("data-action", 1);
-            $(id).modal("hide");
-        });
-        $("body").on("click", id + " .confirmation-no", function (e) {
+	// build the modal DOM passing the configuration and get a reference to the buttons
+	const modalDom = confirmationModal.buildDom(params);
+	const buttonConfirmationYes = modalDom.querySelector('.confirmation-yes');
+
+	// append the modal DOM to the body
+	document.body.appendChild(modalDom);
+	const modalPromise = new Promise((resolve, reject) => {
+		// show the modal
+		$(modalDom).modal('show');
+
+		// handle the yes click event
+		buttonConfirmationYes.addEventListener('click', () => {
+			resolve();
+			$(modalDom).modal('hide');
+		});
+
+		// handle the dismiss events
+		$(modalDom).on('hidden.bs.modal', () => {
             reject();
-            $(id).attr("data-action", 1);
-            $(id).modal("hide");
         });
+	});
 
-        // show the modal
-        $(id).modal("show");
-    });
-    return modalPromise;
+	return modalPromise;
 };
