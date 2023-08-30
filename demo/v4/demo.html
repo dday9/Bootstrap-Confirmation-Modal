@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="A demonstration of the Bootstrap Confirmation Modal" />
+    <meta name="author" content="dday9" />
+
+    <title>Bootstrap4 Confirmation Modal Demo</title>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+</head>
+
+<body>
+	<div class="container">
+		<button type="button" id="button-confirm" class="btn btn-primary">
+		  Click Me!
+		</button>
+		<p class="text-body" id="results"></p>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script>
+	<script src="bootstrap-confirmation-modal.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#button-confirm').on('click', function() {
+				confirmationModal.show({
+					closeIcon: true,
+					message: 'This is an example.',
+					title: 'Example',
+					no: {
+						class: 'btn btn-danger',
+						text: 'No'
+					},
+					yes: {
+						class: 'btn btn-success',
+						text: 'Yes'
+					}
+				})
+				.then(function() {
+					console.log('yes');
+					$('#results').text('You clicked yes.');
+				})
+				.catch(function() {
+					console.log('no');
+					$('#results').text('You either clicked no or outside of the modal.');
+				});
+			});
+		});
+	</script>
+</body>
+
+</html>
