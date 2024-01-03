@@ -9,9 +9,9 @@ Bootstrap made major changes in version 5, namely that Bootstrap 5 is designed t
 ## Demo
 Demo Files: [./demo](./demo)
 
-Fiddle (v4): https://jsfiddle.net/y6v0e5zh/
+Fiddle (v4): https://jsfiddle.net/s3w2cqfk/
 
-Fiddle (v5): https://jsfiddle.net/dqhytg1L/
+Fiddle (v5): https://jsfiddle.net/jcLxah90/
 
 ## Dependencies
 ### CSS
