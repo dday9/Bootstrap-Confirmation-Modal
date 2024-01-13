@@ -4,14 +4,17 @@
 A simple solution for displaying and handling Bootstrap confirmation modals on the fly.
 
 ## Bootstrap V4 and V5
-Bootstrap made major changes in version 5, namely that Bootstrap 5 is designed to be used without jQuery. To accommodate this change, the confirmation modal is split up between two separate directories, [v4](./src/v4) which uses jQuery and another for [v5](./src/v5) which uses vanilla Javascript. 
+Bootstrap made major changes in version 5, namely that Bootstrap 5 is designed to be used without jQuery. To accommodate this change, the confirmation modal is split up between two separate directories, [v4](./src/v4) which uses jQuery and another for [v5](./src/v5) which uses plain Javascript.
+
+### Compatibility
+[v5](./src/v5) uses modern ES6 code, specifically [JavaScript classes: Private class methods](https://caniuse.com/mdn-javascript_classes_private_class_methods).
 
 ## Demo
 Demo Files: [./demo](./demo)
 
 Fiddle (v4): https://jsfiddle.net/s3w2cqfk/
 
-Fiddle (v5): https://jsfiddle.net/jcLxah90/
+Fiddle (v5): https://jsfiddle.net/dfkrvt8x/
 
 ## Dependencies
 ### CSS
