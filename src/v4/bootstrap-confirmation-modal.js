@@ -12,12 +12,18 @@ confirmationModal.setDefaultConfiguration = configuration => {
 	configuration.title = configuration.title || '';
 	configuration.closeIcon = configuration.closeIcon || false;
 	configuration.message = configuration.message || '';
-	configuration.no = configuration.no || {};
-	configuration.no.class = (configuration.no.class || 'btn btn-secondary').trim() + ' confirmation-no';
-	configuration.no.text = configuration.no.text || 'Cancel';
-	configuration.yes = configuration.yes || {};
-	configuration.yes.class = (configuration.yes.class || 'btn btn-primary').trim() + ' confirmation-yes';
-	configuration.yes.text = configuration.yes.text || 'Ok';
+
+	if (configuration.no !== false) {
+		configuration.no = configuration.no || {};
+		configuration.no.class = (configuration.no.class || 'btn btn-secondary').trim() + ' confirmation-no';
+		configuration.no.text = configuration.no.text || 'Cancel';
+	}
+
+	if (configuration.yes !== false) {
+		configuration.yes = configuration.yes || {};
+		configuration.yes.class = (configuration.yes.class || 'btn btn-primary').trim() + ' confirmation-yes';
+		configuration.yes.text = configuration.yes.text || 'Ok';
+	}
 
 	return configuration;
 };
@@ -55,8 +61,10 @@ confirmationModal.buildModalContentDom = configuration => {
 	const modalBody = confirmationModal.buildModalBodyDom(configuration);
 	modalContent.appendChild(modalBody);
 
-	const modalFooter = confirmationModal.buildModalFooterDom(configuration);
-	modalContent.appendChild(modalFooter);
+	if (configuration.no !== false || configuration.yes !== false) {
+		const modalFooter = confirmationModal.buildModalFooterDom(configuration);
+		modalContent.appendChild(modalFooter);
+	}
 
 	return modalContent;
 };
@@ -82,11 +90,15 @@ confirmationModal.buildModalFooterDom = configuration => {
 	const modalFooter = document.createElement('div');
 	modalFooter.classList.add('modal-footer');
 
-	const modalFooterNoButton = confirmationModal.buildModalFooterNoButtonDom(configuration);
-	modalFooter.appendChild(modalFooterNoButton);
+	if (configuration.no !== false) {
+		const modalFooterNoButton = confirmationModal.buildModalFooterNoButtonDom(configuration);
+		modalFooter.appendChild(modalFooterNoButton);
+	}
 
-	const modalFooterYesButton = confirmationModal.buildModalFooterYesButtonDom(configuration);
-	modalFooter.appendChild(modalFooterYesButton);
+	if (configuration.yes !== false) {
+		const modalFooterYesButton = confirmationModal.buildModalFooterYesButtonDom(configuration);
+		modalFooter.appendChild(modalFooterYesButton);
+	}
 
 	return modalFooter;
 };
