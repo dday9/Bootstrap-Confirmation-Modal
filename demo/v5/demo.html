@@ -14,8 +14,14 @@
 
 <body>
 	<div class="container">
-		<button type="button" id="button-confirm" class="btn btn-primary">
-		  Click Me!
+		<button type="button" id="button-none" class="btn btn-primary">
+		  None Configuration
+		</button>
+		<button type="button" id="button-no-footer" class="btn btn-primary">
+		  No Footer Configuration
+		</button>
+		<button type="button" id="button-full" class="btn btn-primary">
+		  Full Configuration
 		</button>
 		<p class="text-body" id="results"></p>
 	</div>
@@ -23,9 +29,37 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="bootstrap-confirmation-modal.min.js"></script>
 	<script>
-		window.addEventListener('load', function() {
-			document.getElementById('button-confirm').addEventListener('click', () => {
-				confirmationModal.show({
+		const modalClosed = isYes => {
+			const results = document.querySelector('#results')
+			if (isYes) {
+				console.log('yes');
+				results.innerText = 'You clicked yes.';
+			} else {
+				console.log('no');
+				results.innerText = 'You either clicked no or outside of the modal.';
+			}
+		};
+
+		const buttonNoneClick = () => {
+			confirmationModal.show()
+				.then(() => modalClosed(true))
+				.catch(() => modalClosed(false));
+		};
+
+		const buttonNoFooterClick = () => {
+			confirmationModal.show({
+					closeIcon: true,
+					message: 'This is an example.',
+					title: 'Example',
+					no: false,
+					yes: false
+				})
+				.then(() => modalClosed(true))
+				.catch(() => modalClosed(false));
+		};
+
+		const buttonFullClick = () => {
+			confirmationModal.show({
 					closeIcon: true,
 					message: 'This is an example.',
 					title: 'Example',
@@ -38,15 +72,14 @@
 						text: 'Yes'
 					}
 				})
-				.then(() => {
-					console.log('yes');
-					document.getElementById('results').innerText = 'You clicked yes.';
-				})
-				.catch(() => {
-					console.log('no');
-					document.getElementById('results').innerText = 'You either clicked no or outside of the modal.';
-				});
-			});
+				.then(() => modalClosed(true))
+				.catch(() => modalClosed(false));
+		};
+
+		window.addEventListener('load', function() {
+			document.querySelector('#button-none').addEventListener('click', buttonNoneClick);
+			document.querySelector('#button-no-footer').addEventListener('click', buttonNoFooterClick);
+			document.querySelector('#button-full').addEventListener('click', buttonFullClick);
 		}, false);
 	</script>
 </body>
