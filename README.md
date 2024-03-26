@@ -65,8 +65,8 @@ Object with the following properties:
 | closeIcon | boolean      | false                                        | Toggles the visibility of the close icon button in the top-right corner of the modal. |
 | message   | string       | ''                                           | The text inside the modal-body element.                                               |
 | title     | string       | ''                                           | The text inside the modal-title element                                               |
-| no        | actionButton | { class: 'confirmation-no', text: 'Cancel' } | Specifies the class and text properties of the 'no' button.                           |
-| yes       | actionButton | { class: 'confirmation-yes', text: 'Ok' }    | Specifies the class and text properties of the 'yes' button                           |
+| no        | actionButton \| boolean | { class: 'confirmation-no', text: 'Cancel' } | Specifies the class and text properties of the 'no' button.                           |
+| yes       | actionButton \| boolean | { class: 'confirmation-yes', text: 'Ok' }    | Specifies the class and text properties of the 'yes' button                           |
 
 #### actionButton
 Object with the following properties:
@@ -74,6 +74,7 @@ Object with the following properties:
 |-------|--------|----------------------------------------------|
 | class | string | The class attribute of the respective button |
 | text  | string | The text of the respective button            |
+If a false value is passed instead of an object representing an actionButton, the button will not be included. If both the no and yes actionButtons have a false value, then the footer will not be included at all.
 
 ## Donate
 Show your support! Your (non-tax deductible) donation of Monero cryptocurrency is a sign of solidarity among web developers.
