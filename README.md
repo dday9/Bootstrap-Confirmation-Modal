@@ -12,7 +12,7 @@ Bootstrap made major changes in version 5, namely that Bootstrap 5 is designed t
 ## Demo
 Demo Files: [./demo](./demo)
 
-Fiddle (v4): https://jsfiddle.net/s3w2cqfk/
+Fiddle (v4): https://jsfiddle.net/e5mdwzr8/
 
 Fiddle (v5): https://jsfiddle.net/Lgovbrdx/
 

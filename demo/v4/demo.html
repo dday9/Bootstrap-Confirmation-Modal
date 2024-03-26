@@ -14,8 +14,14 @@
 
 <body>
 	<div class="container">
-		<button type="button" id="button-confirm" class="btn btn-primary">
-		  Click Me!
+		<button type="button" id="button-none" class="btn btn-primary">
+		  None Configuration
+		</button>
+		<button type="button" id="button-no-footer" class="btn btn-primary">
+		  No Footer Configuration
+		</button>
+		<button type="button" id="button-full" class="btn btn-primary">
+		  Full Configuration
 		</button>
 		<p class="text-body" id="results"></p>
 	</div>
@@ -24,9 +30,37 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script>
 	<script src="bootstrap-confirmation-modal.min.js"></script>
 	<script>
-		$(document).ready(function() {
-			$('#button-confirm').on('click', function() {
-				confirmationModal.show({
+		const modalClosed = isYes => {
+			const results = document.querySelector('#results')
+			if (isYes) {
+				console.log('yes');
+				results.innerText = 'You clicked yes.';
+			} else {
+				console.log('no');
+				results.innerText = 'You either clicked no or outside of the modal.';
+			}
+		};
+
+		const buttonNoneClick = () => {
+			confirmationModal.show()
+				.then(() => modalClosed(true))
+				.catch(() => modalClosed(false));
+		};
+
+		const buttonNoFooterClick = () => {
+			confirmationModal.show({
+					closeIcon: true,
+					message: 'This is an example.',
+					title: 'Example',
+					no: false,
+					yes: false
+				})
+				.then(() => modalClosed(true))
+				.catch(() => modalClosed(false));
+		};
+
+		const buttonFullClick = () => {
+			confirmationModal.show({
 					closeIcon: true,
 					message: 'This is an example.',
 					title: 'Example',
@@ -39,15 +73,14 @@
 						text: 'Yes'
 					}
 				})
-				.then(function() {
-					console.log('yes');
-					$('#results').text('You clicked yes.');
-				})
-				.catch(function() {
-					console.log('no');
-					$('#results').text('You either clicked no or outside of the modal.');
-				});
-			});
+				.then(() => modalClosed(true))
+				.catch(() => modalClosed(false));
+		};
+
+		$(document).ready(function() {
+			$('#button-none').on('click', buttonNoneClick);
+			$('#button-no-footer').on('click', buttonNoFooterClick);
+			$('#button-full').on('click', buttonFullClick);
 		});
 	</script>
 </body>
